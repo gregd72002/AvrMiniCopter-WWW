@@ -1,0 +1,52 @@
+Config:
+2 [log]		- log mode (see log section)
+3 [mode]	- fly mode (0-stab, 1-acro)
+4 [gyro_o]	- gyro orientation; this is a single value that represent gyro orientation
+5-8 [pin]	- motor pin (front-left, back-left, front-right, back-right)
+17 [pwm]	- standby throttle - this value will be fed to motors when on stadby
+18 [pwm]	- start throttle threshold - should be set to around 5% above standby throttle
+
+70-224		- PID configurations
+
+Debug:
+249 [v]		- AVR ping; sends back the same message
+250-253 [pwm]	- feed PWM to motor (front-left, back-left, front-right, back-right); motor needs to be initialized
+		  Note: this is intended to work when AVR status is 1
+254 [motor]	- init motor (0-FL, 1-BL, 2-FR, 3-BR); motor pin needs to be provided before
+		  Note: this is intended to work when AVR status is 1
+255 0		- get AVR status
+255 1		- get AVR number of SPI crc errors 
+255 2		- arm motors (status = 2); this should only be executed after configuration! (double check item 17 & 18)
+255 254		- dummy
+255 255		- reboot AVR
+
+Run:
+10 [yaw]	- desired yaw rate
+11 [pitch]	- desired pitch
+12 [roll]	- desired roll
+13 [throttle]	- desired throttle
+14 [alt]	- feed recent altitude measurement in cm
+15 0/1		- engage/disengage altitude hold
+16 [val]	- change target altitude by [val] in cm
+
+Status reponses:
+0		- early init
+1		- awaiting config or command
+2		- arm motors
+3		- initialize mpu
+4		- calibrate gyro
+5		- running
+253		- loop execution failure - mpu error (mpu fifo full?)  
+254		- loop execution failure due to lag (avr is flooded with messages?) 
+255		- gyro calibration failed 
+
+
+Received values:
+20-23 		- accel reading min (g-force) multiplied by 1000;
+25-27		- accel reading max (g-force) multiplied by 1000;
+
+1-3		- gyro reading; multiplied by 100; (yaw, pitch, roll);
+
+5-8		- quaternion reading; multiplied by 100; (yaw, pitch, roll, yaw target);
+
+10-13		- motor calculated PWM
