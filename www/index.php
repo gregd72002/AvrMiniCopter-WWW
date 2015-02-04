@@ -38,17 +38,18 @@ session_start();
       <a data-ajax="false" href="livechart.php" data-transition="slide" class="ui-btn ui-corner-all">Live Charts</a>
       <a data-ajax="false" href="wifi.php" data-transition="slide" class="ui-btn ui-corner-all">Wifi Settings</a>
 <?php
-$files = glob('addons/cfg_*.php', GLOB_BRACE);
+$addons_dir = 'addons/';
+$files = glob($addons_dir.'cfg_*.php', GLOB_BRACE);
 foreach($files as $file) {
   //do your work here
-  @include "$file";
+  @include $file;
   $n = substr($file, 11);
   $n = substr($n, 0, strpos($n, '.'));
   
   $dst = ${$n."_HREF"};
   $name = ${$n."_NAME"};
 
-  echo '<a data-ajax="false" href="'.$dst.'" data-transition="slide" class="ui-btn ui-corner-all">'.$name.'</a>';
+  echo '<a data-ajax="false" href="'.$addons_dir.$dst.'" data-transition="slide" class="ui-btn ui-corner-all">'.$name.'</a>';
 }
 ?>
 <div data-role="collapsible" data-collapsed="true">
