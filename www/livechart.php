@@ -45,7 +45,7 @@ Status...
 <button id="btnoff">Off</button>
 <button id="btnaccel">Accel</button>
 <button id="btngyro">Gyro</button>
-<button id="btnquat">Quaternions</button>
+<button id="btnquat">YPR</button>
 <button id="btnalt">Altitude</button>
 </div>
 <div style="float: left;width: 86%;height: 400px;" id="chart1">
@@ -287,7 +287,7 @@ function chart_quat() {
 	 animationEnabled: false,
 	exportEnabled: true,
       title:{
-        text: "Quaternions"              
+        text: "YPR"              
       },
       legend: default_legend, 
       data: [//array of dataSeries              
