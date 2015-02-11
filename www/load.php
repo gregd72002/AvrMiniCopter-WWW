@@ -43,11 +43,10 @@ $acro_p = $c[10][0];
 
 $baro_f = $c[10][1];
 
-$motor_pin = $c[11];
+$gyro_orient = $c[11];
 
-$mpu_addr = $c[12][0];
-$mpu_pos = $c[12][1];
-$mpu_reset = $c[12][2];
+$motor_pin = $c[12];
 
-
+$mpu_addr = $c[13][0];
+$mpu_reset = $c[13][1];
 ?>
