@@ -2,9 +2,9 @@
 @include('config.php');
 $f = $_GET['f'];
 
-$fp = @fopen($log_path.$f, 'rb');
+$fp = @fopen($cam_path.$f, 'rb');
 
-$size   = filesize($log_path.$f); // File size
+$size   = filesize($cam_path.$f); // File size
 $length = $size;           // Content length
 $start  = 0;               // Start byte
 $end    = $size - 1;       // End byte
