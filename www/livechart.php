@@ -19,11 +19,12 @@ session_start();
     $(document).ready(function() {
         ws = new Websock();
         var lip = '<?php echo $host ?>';
-	console.log(lip);
+        console.log(lip);
+        ws.on('open',ws_init);
+        ws.on('message',lc_ws_recv);
+        ws.on('error',lc_ws_err);
         ws.open("ws://"+lip+":8888");
-	ws.on('message',lc_ws_recv);
-	ws.on('error',lc_ws_err);
-	statusDiv.text("Select log type on the right");
+        statusDiv.text("Select log type on the right");
     });
 </script>
 </head>

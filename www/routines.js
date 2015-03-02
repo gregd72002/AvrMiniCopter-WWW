@@ -39,3 +39,9 @@ function ws_send(t,v) {
 */
 	ws.send([0,t,(v & 0xFF00) >> 8, v & 0x00FF]);
 }
+
+                                   
+function ws_init() {                                      
+        ws.send([0]);
+} 
+

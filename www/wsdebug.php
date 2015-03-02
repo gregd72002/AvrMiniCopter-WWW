@@ -20,6 +20,7 @@ session_start();
         var lip = '<?php echo $host; ?>';
 	console.log(lip);
 	ws.on('error',debug_ws_err);
+        ws.on('open',ws_init);
         ws.open("ws://"+lip+":8888");
 	debug_start_ws();
     });
