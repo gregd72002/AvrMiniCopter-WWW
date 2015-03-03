@@ -20,7 +20,7 @@ session_start();
         var lip = '<?php echo $host; ?>';
 	console.log(lip);
 	ws.on('error',debug_ws_err);
-        ws.on('open',ws_init);
+	ws.on('open',ws_init);
         ws.open("ws://"+lip+":8888");
 	debug_start_ws();
     });
@@ -79,7 +79,7 @@ function debug_ws_recv() {
 		return;
 	}
 	for (var i=0;i<data.data.length;i++) {
-		addToDebug(0,data.data[i].t,data.data[i].v);
+		addToDebug(0,data.data[i].c,data.data[i].t,data.data[i].v);
 	
 	}
 }
@@ -89,8 +89,8 @@ function debug_ws_err() {
 	console.log('WS Error: ',arguments);
 }
 
-function debug_ws_send(t,v) {
-	ws_send(t,v);
+function debug_ws_send(c,t,v) {
+	ws_send(c,t,v);
 }
 
 function isInt(value) {
@@ -138,8 +138,10 @@ $( "#sendCmd" ).click(function(){
 				statusDiv.text("Error parsing line: "+i);
 				setTimeout(clearStatus,3000);
 				return false;
+			} else if (isInt(tmp[0]) &&  isInt(tmp[1]) && isInt(tmp[2])) {
+				d.push({"c": tmp[0], "t": tmp[1], "v": tmp[2]});
 			} else if (isInt(tmp[0]) &&  isInt(tmp[1])) {
-				d.push({"t": tmp[0], "v": tmp[1]});
+				d.push({"c": 0, "t": tmp[0], "v": tmp[1]});
 			} else {
 				statusDiv.text("Error parsing int on line: "+i);
 				setTimeout(clearStatus,3000);
@@ -149,8 +151,8 @@ $( "#sendCmd" ).click(function(){
 
 		//populate debug
 		for (var i=0;i<d.length;i++) {
-			addToDebug(1,d[i].t,d[i].v);
-			debug_ws_send(d[i].t,d[i].v)
+			addToDebug(1,d[i].c,d[i].t,d[i].v);
+			debug_ws_send(d[i].c,d[i].t,d[i].v)
 		}
 
 		$("textarea#cmd").val("");
@@ -183,15 +185,15 @@ function addLineToDebug(l) {
 	pre.scrollTop( pre.prop("scrollHeight") );
 }
 
-function addToDebug(s, t ,v) {
+function addToDebug(s, c, t ,v) {
 	t=""+t;
 	if (s == 0)
 		if (filter.length>0)
 			if ($.inArray(t,filter)==-1) return;
 	if (s==0) 
-		addLineToDebug(">> "+t+" "+v);
+		addLineToDebug(">> "+c+" "+t+" "+v);
 	else 
-		addLineToDebug(""+t+" "+v);
+		addLineToDebug(""+c+" "+t+" "+v);
 }
 
 </script>

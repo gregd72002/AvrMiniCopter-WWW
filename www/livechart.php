@@ -19,12 +19,12 @@ session_start();
     $(document).ready(function() {
         ws = new Websock();
         var lip = '<?php echo $host ?>';
-        console.log(lip);
-        ws.on('open',ws_init);
-        ws.on('message',lc_ws_recv);
-        ws.on('error',lc_ws_err);
+	console.log(lip);
+	ws.on('open',ws_init);
+	ws.on('message',lc_ws_recv);
+	ws.on('error',lc_ws_err);
         ws.open("ws://"+lip+":8888");
-        statusDiv.text("Select log type on the right");
+	statusDiv.text("Select log type on the right");
     });
 </script>
 </head>
@@ -48,6 +48,7 @@ Status...
 <button id="btngyro">Gyro</button>
 <button id="btnquat">YPR</button>
 <button id="btnalt">Altitude</button>
+<button id="btnwifi">Wifi-RSSI</button>
 </div>
 <div style="float: left;width: 86%;height: 400px;" id="chart1">
 </div>
@@ -61,6 +62,7 @@ $( "#btnaccel" ).click(function(){changeChart(1);});
 $( "#btngyro" ).click(function(){changeChart(2);});
 $( "#btnquat" ).click(function(){changeChart(3);});
 $( "#btnalt" ).click(function(){changeChart(4);});
+$( "#btnwifi" ).click(function(){changeChart(5);});
 
 function changeChart(x) {
 	if (chart) delete chart;
@@ -71,24 +73,27 @@ function changeChart(x) {
 	chart1 = null;
 	switch(x) {
 		case 0: 
-			ws_send(2,0);
+			ws_send(0,2,0);
 			chart_dummy();
 			break;
 		case 1:
-			ws_send(2,1);
+			ws_send(0,2,1);
 			chart_accel();
 			break;
 		case 2:
-			ws_send(2,2);
+			ws_send(0,2,2);
 			chart_gyro();
 			break;
 		case 3:
-			ws_send(2,3);
+			ws_send(0,2,3);
 			chart_quat();
 			break;
 		case 4:
-			ws_send(2,4);
+			ws_send(0,2,4);
 			chart_alt();
+			break;
+		case 5:
+			chart_wifi();
 			break;
 	}	
 }
@@ -103,6 +108,39 @@ var msg_handler = function() {};
 var packet = [];
 
 function chart_dummy() {
+}
+
+function chart_wifi() {
+	dps = [[]];
+	packet = [0];
+	xVal = 0;
+
+	chart = new CanvasJS.Chart("chart", {
+	 animationEnabled: false,
+	exportEnabled: true,
+      title:{
+        text: "RSSI"              
+      },
+      legend: default_legend, 
+      data: [//array of dataSeries              
+        {
+         type: "line",
+	 markerType: "line",
+	 dataPoints: dps[0],
+	showInLegend: true,
+	name: 'RSSI'
+       }
+       ]
+     });
+
+    msg_handler = chart_wifi_handler;
+}
+
+function chart_wifi_handler(c, t, v) {
+	if (c!=3 || t!=249) return;
+	
+	packet[0] = v;
+	add_packet();
 }
 
 function chart_alt() {
@@ -145,7 +183,8 @@ function chart_alt() {
     msg_handler = chart_alt_handler;
 }
 
-function chart_alt_handler(t, v) {
+function chart_alt_handler(c, t, v) {
+	if (c!=0) return;
 	if (t>=18 && t<=20) {
 		packet[t-18] = v;
 
@@ -216,7 +255,8 @@ function chart_accel() {
     msg_handler = chart_accel_handler;
 }
 
-function chart_accel_handler(t, v) {
+function chart_accel_handler(c, t, v) {
+	if (c!=0) return;
 	if (t>=12 && t<=17) {
 		packet[t-12] = v/1000;
 
@@ -226,7 +266,8 @@ function chart_accel_handler(t, v) {
 	}
 }
 
-function chart_quat_handler(t, v) {
+function chart_quat_handler(c, t, v) {
+	if (c!=0) return;
 	if (t>=4 && t<=7) {
 		packet[t-4] = v/100;
 
@@ -329,7 +370,8 @@ function chart_quat() {
 
 }
 
-function chart_quat_handler(t, v) {
+function chart_quat_handler(c, t, v) {
+	if (c!=0) return;
 	if (t>=4 && t<=7) {
 		packet[t-4] = v/100;
 
@@ -384,7 +426,8 @@ function chart_gyro() {
     msg_handler = chart_gyro_handler;
 }
 
-function chart_gyro_handler(t, v) {
+function chart_gyro_handler(c,t, v) {
+	if (c!=0) return;
 	if (t>=1 && t<=3) {
 		packet[t-1] = v/100;
 
@@ -429,7 +472,7 @@ function lc_ws_recv() {
 		return;
 	}
 	for (var i=0;i<data.data.length;i++) {
-		msg_handler(data.data[i].t,data.data[i].v);
+		msg_handler(data.data[i].c,data.data[i].t,data.data[i].v);
 	}
 }
 
@@ -446,3 +489,4 @@ function clearStatus() {
 </script>
 </body>
 </html>
+                       
