@@ -32,7 +32,7 @@ function ws_send(c,t,v) {
 	ws.send([c,t,(v & 0xFF00) >> 8, v & 0x00FF]);
 }
 
-function ws_init() {
-	ws.send([0]);
+function ws_init(type) {
+	ws.send([type]);
 }
 

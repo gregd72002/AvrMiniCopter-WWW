@@ -20,7 +20,7 @@ session_start();
         ws = new Websock();
         var lip = '<?php echo $host ?>';
 	console.log(lip);
-	ws.on('open',ws_init);
+	ws.on('open',function(){ws_init(0);});
 	ws.on('message',lc_ws_recv);
 	ws.on('error',lc_ws_err);
         ws.open("ws://"+lip+":8888");

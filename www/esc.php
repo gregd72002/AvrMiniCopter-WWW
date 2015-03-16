@@ -14,5 +14,4 @@
 <?php
 @include "esc_pwm.php";
 @include "esc_pin.php";
-//@include "esc_test.php";
 ?>
