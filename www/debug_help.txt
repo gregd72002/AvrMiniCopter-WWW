@@ -9,20 +9,20 @@ AVR Testing:
 255 1		- get number of SPI errors on HOST->AVR line 
 
 Motor testing (only works in maintenance mode):
-5-8 [pin]	- motor pin (front-left, back-left, front-right, back-right)
-250-253 [pwm]	- feed PWM to motor (front-left, back-left, front-right, back-right); motor needs to be initialized
-254 [motor]	- init motor (0-FL, 1-BL, 2-FR, 3-BR); motor pin needs to be provided before
+5 [order]	- motor pin order for FL, BL, FR, BR: (0,1,2,3) => pin(9,3,6,4)  mask: (0x3, 0xC, 0x30, 0xC0)
+6 		- init motors (make sure to feed 5 and 17 before)
+250-253 [pwm]	- feed PWM to motor (FL, BL, FR, BR); motor needs to be initialized
 
 
 Example motor test:
 0 2
 ==== WAIT FOR RESPONSE ====
-5 3
-250 1000
-254 0
+5 228 
+17 1008
+6 0
 250 1070
 ==== MOTOR SHOULD SPIN ====
-250 1000
+250 1008
 
 
 Config:

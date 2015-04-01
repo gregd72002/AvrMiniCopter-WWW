@@ -17,6 +17,7 @@ exit(0);
 
 $c[0][0] = $_POST['throttle_0'];
 $c[0][1] = $_POST['throttle_1'];
+$c[0][2] = $_POST['throttle_2'];
 
 $c[1][0] = $_POST['pidr_y_0']; 
 $c[1][1] = $_POST['pidr_y_1']; 
@@ -111,7 +112,7 @@ for ($i=0;$i<count($c);$i++) {
 fclose($handle); 
 
 
-shell_exec("/usr/local/bin/avrspi_cmd -t 0 -v 1");
+shell_exec('echo "0 1" > /dev/avrspi_cmd');
 
 header('Location: '.$_SERVER['HTTP_REFERER'] . '#' . $_SESSION['hash']);
 ?>

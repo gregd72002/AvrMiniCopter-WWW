@@ -29,15 +29,36 @@ vertical-align: middle;
 </div>
 </div>
 <div class="ui-field-contain">
-  <label for="name">Front-left (0) pin:</label>
-  <input type="number" name="motor_pin_0" id="motor_pin_0" value="<?php echo $motor_pin[0];?>"/>
-  <label for="name">Back-left (1) pin:</label>
-  <input type="number" name="motor_pin_1" id="motor_pin_1" value="<?php echo $motor_pin[1];?>"/>
-  <label for="name">Front-right (2) pin:</label>
-  <input type="number" name="motor_pin_2" id="motor_pin_2" value="<?php echo $motor_pin[2];?>"/>
-  <label for="name">Back-right (3) pin:</label>
-  <input type="number" name="motor_pin_3" id="motor_pin_3" value="<?php echo $motor_pin[3];?>"/>
+  <label for="motor_pin_0">pin 9:</label>
+  <select name="motor_pin_0" id="motor_pin_0">
+    <option value="0">0: Front-left (FL)</option>
+    <option value="1">1: Back-left (BL)</option>
+    <option value="2">2: Front-right (FR)</option>
+    <option value="3">3: Back-right (BR)</option>
+  </select>
+  <label for="motor_pin_1">pin 3:</label>
+  <select name="motor_pin_1" id="motor_pin_1">
+    <option value="0">0: Front-left (FL)</option>
+    <option value="1">1: Back-left (BL)</option>
+    <option value="2">2: Front-right (FR)</option>
+    <option value="3">3: Back-right (BR)</option>
+  </select>
+  <label for="motor_pin_2">pin 6:</label>
+  <select name="motor_pin_2" id="motor_pin_2">
+    <option value="0">0: Front-left (FL)</option>
+    <option value="1">1: Back-left (BL)</option>
+    <option value="2">2: Front-right (FR)</option>
+    <option value="3">3: Back-right (BR)</option>
+  </select>
+  <label for="motor_pin_3">pin 5:</label>
+  <select name="motor_pin_3" id="motor_pin_3">
+    <option value="0">0: Front-left (FL)</option>
+    <option value="1">1: Back-left (BL)</option>
+    <option value="2">2: Front-right (FR)</option>
+    <option value="3">3: Back-right (BR)</option>
+  </select>
 
+Calculated motor order: <span id="motor_order"></span>
 
 </div>
 <div data-role="collapsible">
@@ -69,6 +90,29 @@ vertical-align: middle;
 
   </div>
 <script>
+
+function calculateMotorOrder() {
+	var v = 0;
+	v = v | ($("select#motor_pin_0").val());
+	v = v | ($("select#motor_pin_1").val() << 2);
+	v = v | ($("select#motor_pin_2").val() << 4);
+	v = v | ($("select#motor_pin_3").val() << 6);
+
+	$("span#motor_order").text(v);
+}
+
+$("select#motor_pin_0").change(function() { calculateMotorOrder(); } );
+$("select#motor_pin_1").change(function() { calculateMotorOrder(); } );
+$("select#motor_pin_2").change(function() { calculateMotorOrder(); } );
+$("select#motor_pin_3").change(function() { calculateMotorOrder(); } );
+
+$("select#motor_pin_0").val(<?php echo $motor_pin[0]; ?>);
+$("select#motor_pin_1").val(<?php echo $motor_pin[1]; ?>);
+$("select#motor_pin_2").val(<?php echo $motor_pin[2]; ?>);
+$("select#motor_pin_3").val(<?php echo $motor_pin[3]; ?>);
+
+calculateMotorOrder();
+
 
 $(".rotate").click(function(event) {
 	event.preventDefault();
