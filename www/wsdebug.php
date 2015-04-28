@@ -54,7 +54,7 @@ session_start();
 <pre id="debugView" style="width: 100%;height:300px;overflow: scroll; border-style:solid; border-width: 1px;">
 </pre>
 <button id="toggleDebug">Pause</button>
-Filter: <input data-role="none" style="width: 200px" type="text" name="filter" id="filter" value="255 254 253 252"/>
+Filter: <input data-role="none" style="width: 200px" type="text" name="filter" id="filter" value="255 254 253 252 251 250"/>
 <button data-role="none" id="btnfilter">Apply</button>
 <button data-role="none" id="btnfilterclear">Clear</button>
 </div>
@@ -66,7 +66,7 @@ var BUF_SIZE = 20;
 var buf_lines = 0;
 var pause = 0;
 var pause_x = 0;
-var filter = ['255', '254', '253', '252'];
+var filter = ['255', '254', '253', '252', '251', '250'];
 
 function debug_ws_recv() {
 	var data = ws_recv();

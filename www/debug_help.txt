@@ -31,10 +31,6 @@ Config:
 4 [gyro_o]	- gyro orientation; this is a single value that represent gyro orientation
 17 [pwm]	- standby throttle - this value will be fed to motors when on stadby
 18 [pwm]	- start throttle threshold - should be set to around 5% above standby throttle
-19 [pwm]	- hover throttle - used when in altitude hold and failsafe
-20 [sec]	- failsafe grace period - when failsafe is engaged for longer than provided number of second the controller will stop all motors
-21 [accel]	- activates accelerometer based crash detector - if acceleration of the quadcopter exceeds provided value (in G*100) the controller will stop all motors
-25 0		- initiate failsafe
 70-224		- PID configurations
 
 255 2		- arm motors (status = 2); this should only be executed after configuration! (double check item 17 & 18)
@@ -56,11 +52,17 @@ Status reponses (to request: 255 0):
 3		- initialize mpu
 4		- calibrate gyro
 5		- running
-251		- crash detected 
-252		- failsafe exceeded allowed time
-253		- loop execution failure - mpu error (mpu fifo full?)  
-254		- loop execution failure due to lag (avr is flooded with messages?) 
+252		- failsafe landing failed! (exceeded allowed time)
+253		- loop execution failure - mpu error (if code -127 mpu fifo full)  
+254		- failsafe landing successful
 255		- gyro calibration failed 
+
+Code responses (to request: 255 7)
+1		- loop execution failure due to lag (avr is flooded with messages?); failsafe landing 
+2		- alt hold failed due to no altitude data (i.e. baro failed)
+-127		- mpu fifo full
+
+
 
 
 Received values (depends on log setting):
