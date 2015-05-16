@@ -52,6 +52,8 @@ Status reponses (to request: 255 0):
 3		- initialize mpu
 4		- calibrate gyro
 5		- running
+250		- MPU initialization failed
+251		- crash detected
 252		- failsafe landing failed! (exceeded allowed time)
 253		- loop execution failure - mpu error (if code -127 mpu fifo full)  
 254		- failsafe landing successful
