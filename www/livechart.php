@@ -293,28 +293,28 @@ function _chart_motor() {
 	 markerType: "line",
 	 dataPoints: dps[4],
 	showInLegend: true,
-	name: 'Yaw'
+	name: 'FL'//'Yaw'
        },
         {
          type: "line",
 	 markerType: "line",
          dataPoints: dps[5],
 	showInLegend: true,
-	name: 'Pitch'
+	name: 'BL'//'Pitch'
        },
         {
          type: "line",
 	 markerType: "line",
          dataPoints: dps[6],
 	showInLegend: true,
-	name: 'Roll'
+	name: 'FR'//'Roll'
        },
         {
          type: "line",
 	 markerType: "line",
          dataPoints: dps[7],
 	showInLegend: true,
-	name: 'Yaw Target'
+	name: 'BR' //'Yaw Target'
        }
        ]
      });
@@ -489,4 +489,4 @@ function clearStatus() {
 </script>
 </body>
 </html>
-                       
+
