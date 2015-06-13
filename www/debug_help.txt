@@ -2,6 +2,7 @@ General
 0 1		- reset into normal mode
 0 2		- reset into maintenance mode
 0 3		- get number of SPI errors on AVR->HOST line
+0 5		- get RPI status (0=ok; 1=SPI buf overflow; 2=AVR connection quality issues)
 
 AVR Testing:
 255 0		- get AVR status
