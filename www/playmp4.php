@@ -1,5 +1,5 @@
 <?php
-@include('config.php');
+@include_once("config.php");
 $f = $_GET['f'];
 
 $fp = @fopen($cam_path.$f, 'rb');

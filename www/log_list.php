@@ -1,6 +1,6 @@
 <ul data-role="listview">
 <?php
-@include("config.php");
+@include_once("config.php");
 function substrAfter($str, $last) {
         return substr( $str, strrpos( $str, $last )+2 );
 }

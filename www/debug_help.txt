@@ -21,11 +21,12 @@ Motor testing (only works in maintenance mode):
 250-253 [pwm]	- feed PWM to motor (FL, BL, FR, BR); motor needs to be initialized
 
 
-Example motor test:
+Example motor test (you should ensure all controllers are switched off and not transmitting):
 0 2
 ==== WAIT FOR RESPONSE ====
 5 228 
 17 1008
+18 1050
 6 0
 250 1070
 ==== MOTOR SHOULD SPIN ====

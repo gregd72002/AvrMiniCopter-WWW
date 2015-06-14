@@ -1,7 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', True);
-@include "config.php";
+
+@include_once("config.php");
 $f = $config_path.'rpicopter.config';
 $c = [];
 

@@ -1,6 +1,6 @@
 <ul data-role="listview">
 <?php
-@include("config.php");
+@include_once("config.php");
 
 $d = [];
 $files = glob($cam_path.'*.jpg');
