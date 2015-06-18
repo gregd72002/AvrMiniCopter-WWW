@@ -279,7 +279,7 @@ function chart_quat_handler(c, t, v) {
 	}
 }
 
-function _chart_motor() {
+function _chart_motor(offset) {
 	chart1 = new CanvasJS.Chart("chart1", {
 	 animationEnabled: false,
 	exportEnabled: true,
@@ -291,28 +291,28 @@ function _chart_motor() {
         {
          type: "line",
 	 markerType: "line",
-	 dataPoints: dps[4],
+	 dataPoints: dps[4+offset],
 	showInLegend: true,
 	name: 'FL'//'Yaw'
        },
         {
          type: "line",
 	 markerType: "line",
-         dataPoints: dps[5],
+         dataPoints: dps[5+offset],
 	showInLegend: true,
 	name: 'BL'//'Pitch'
        },
         {
          type: "line",
 	 markerType: "line",
-         dataPoints: dps[6],
+         dataPoints: dps[6+offset],
 	showInLegend: true,
 	name: 'FR'//'Roll'
        },
         {
          type: "line",
 	 markerType: "line",
-         dataPoints: dps[7],
+         dataPoints: dps[7+offset],
 	showInLegend: true,
 	name: 'BR' //'Yaw Target'
        }
@@ -364,7 +364,7 @@ function chart_quat() {
        ]
      });
 
-	_chart_motor();
+	_chart_motor(0);
 
     msg_handler = chart_quat_handler;
 
@@ -421,7 +421,7 @@ function chart_gyro() {
        ]
      });
 
-	_chart_motor();
+	_chart_motor(-1);
 
     msg_handler = chart_gyro_handler;
 }

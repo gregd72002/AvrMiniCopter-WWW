@@ -79,8 +79,8 @@ Received values (depends on log setting):
 
 1-3		- gyro reading; multiplied by 100; (yaw, pitch, roll);
 
-5-8		- quaternion reading; multiplied by 100; (yaw, pitch, roll, yaw target);
+4-7		- quaternion reading; multiplied by 100; (yaw, pitch, roll, yaw target);
 
-10-13		- motor calculated PWM
+8-11		- motor calculated PWM
 249		- Wifi RSSI measurement
 
