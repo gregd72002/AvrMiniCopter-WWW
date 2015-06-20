@@ -63,9 +63,9 @@ Calculated motor order: <span id="motor_order"></span>
 </div>
 <div data-role="collapsible">
   <h3>MPU orientation matrix</h3>
-  <p>When pitching forwards the pitch quaternion should increase</p>
-  <p>When rolling right the roll quaternion should increase</p>
-  <p>When yawing right the yaw quaternion should decrease</p>
+  <p>When pitching forwards the pitch should increase</p>
+  <p>When rolling right the roll should increase</p>
+  <p>When yawing right the yaw should decrease</p>
   <p>To toggle pitch change the sign of first column (i.e. from 1 to -1)</p>
   <p>To toggle roll change sign of second column (i.e. from 1 to -1)</p>
   <p>This is a 3x3 matrix. The top-left item is identified as 0,0. Please refer to MPU6050/6150 driver source code.</p>
