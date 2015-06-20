@@ -7,7 +7,7 @@ General
 AVR Testing:
 255 0		- get AVR status
 255 1		- get number of SPI errors on HOST->AVR line 
-255 2		- (internal) (status = 2); this should only be executed after configuration! (double check item 17 & 18)
+255 2		- (internal) (status = 2); this should only be executed after configuration! (double check item 17, 18, 19)
 255 3		- get SPI output buffer size
 255 4		- get SPI input buffer size
 255 5		- get last loop execution time (ms)

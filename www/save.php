@@ -18,6 +18,7 @@ exit(0);
 $c[0][0] = $_POST['throttle_0'];
 $c[0][1] = $_POST['throttle_1'];
 $c[0][2] = $_POST['throttle_2'];
+$c[0][3] = $_POST['throttle_3'];
 
 $c[1][0] = $_POST['pidr_y_0']; 
 $c[1][1] = $_POST['pidr_y_1']; 
@@ -103,6 +104,10 @@ for ($i=0;$i<count($c);$i++) {
 }
 
 $handle = fopen($config_path."rpicopter.config", "w");
+if ($handle == FALSE) {       
+        die("Error opening rpicopter.config");
+        exit(0);                           
+}  
 for ($i=0;$i<count($c);$i++) {                    
     for ($j=0;$j<count($c[$i]);$j++)       
         fprintf($handle,"%s\t",$c[$i][$j]);

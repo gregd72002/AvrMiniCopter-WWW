@@ -9,25 +9,30 @@ $page_id='esc_pwm';
 
     <div role="main" class="ui-content">
 <div class="ui-field-contain">
-  <label for="throttle_0"><a href="#p_pwm_min" data-rel="popup">ESC min:</a></label>
+  <label for="throttle_0"><a href="#p_pwm_standby" data-rel="popup">ESC standby:</a></label>              
   <input type="number" name="throttle_0" id="throttle_0" value="<?php echo $throttle[0];?>"/>
-  <label for="throttle_1"><a href="#p_inflight_threshold" data-rel="popup">Inflight threshold:</a></label>
-  <input type="number" name="throttle_1" id="throttle_1" value="<?php echo $throttle[1];?>"/>
-  <label for="throttle_2"><a href="#p_hover" data-rel="popup">Hover throttle:</a></label>
+  <label for="throttle_1"><a href="#p_pwm_min" data-rel="popup">ESC min:</a></label>                      
+  <input type="number" name="throttle_1" id="throttle_1" value="<?php echo $throttle[1];?>"/>  
+  <label for="throttle_2"><a href="#p_inflight_threshold" data-rel="popup">Inflight threshold:</a></label> 
   <input type="number" name="throttle_2" id="throttle_2" value="<?php echo $throttle[2];?>"/>
-
-</div>
-<input type="submit" value="Save"/>
-    </div>
-
-<div data-role="popup" id="p_pwm_min">
-  <p>This is a PWM value that will be fed to ESCs when throttle is at 0%.</p>
-</div>
+  <label for="throttle_3"><a href="#p_hover" data-rel="popup">Hover throttle:</a></label>
+  <input type="number" name="throttle_3" id="throttle_3" value="<?php echo $throttle[3];?>"/>
+                                   
+</div>                                
+<input type="submit" value="Save"/>                                          
+    </div>                            
+                                                                             
+<div data-role="popup" id="p_pwm_standby">                                                                             
+  <p>This is a PWM value that will be fed to ESCs when throttle is at 0%.</p>                                          
+</div>                                                                                                                 
+<div data-role="popup" id="p_pwm_min">                           
+  <p>At this PWM value the controller PIDs will be activated. Please ensure your ESC spins the motors at this value.</p>        
+</div>                                                                       
 <div data-role="popup" id="p_inflight_threshold">
-  <p>At this PWM value the controller PIDs will be activated. Please ensure that your motors do spin at this value.</p>
-</div>
-<div data-role="popup" id="p_hover">
-  <p>This is a throttle at which the quadcopter should hover.</p>
-</div>
-
+  <p>At this PWM value failsafe check will be activated as well as this is used for landing check (increase if quadcopter can self land but does not switch off motors).</p>               
+</div>                                                                                                                 
+<div data-role="popup" id="p_hover">                             
+  <p>This is a throttle at which the quadcopter should hover.</p>                            
+</div>                                                           
+        
   </div>
