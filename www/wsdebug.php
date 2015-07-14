@@ -51,10 +51,11 @@ session_start();
 </div>
 </div>
 <div style="float: left;width: 48%;margin-left:20px;height:450px;">
+<div id="avrstatus">AWAITING STATUS</div> 
 <pre id="debugView" style="width: 100%;height:300px;overflow: scroll; border-style:solid; border-width: 1px;">
 </pre>
 <button id="toggleDebug">Pause</button>
-Filter: <input data-role="none" style="width: 200px" type="text" name="filter" id="filter" value="255 254 253 252 251 250"/>
+Filter: <input data-role="none" style="width: 200px" type="text" name="filter" id="filter" value="254 253 252 251 250"/>
 <button data-role="none" id="btnfilter">Apply</button>
 <button data-role="none" id="btnfilterclear">Clear</button>
 </div>
@@ -66,7 +67,7 @@ var BUF_SIZE = 20;
 var buf_lines = 0;
 var pause = 0;
 var pause_x = 0;
-var filter = ['255', '254', '253', '252', '251', '250'];
+var filter = ['254', '253', '252', '251', '250'];
 
 function debug_ws_recv() {
 	var data = ws_recv();
@@ -79,6 +80,7 @@ function debug_ws_recv() {
 		return;
 	}
 	for (var i=0;i<data.data.length;i++) {
+		if (data.data[i].t==255) processStatus(data.data[i].v); 
 		addToDebug(0,data.data[i].c,data.data[i].t,data.data[i].v);
 	
 	}
@@ -111,6 +113,19 @@ function debug_start_ws() {
 
 function debug_pause_ws() {
 	ws.on('message',function(){ws.rQshiftBytes(ws.rQlen())});
+}
+
+function getInt8(v) {
+	return v << 24 >> 24;
+}
+
+function processStatus(v) {
+	//console.log(v);
+	var s = (v & 0xFF00) >> 8;
+	var c = getInt8((v & 0xFF) >>> 0);
+	var d = new Date();
+	var avrstatus = $("div#avrstatus");
+	avrstatus.text("Status: "+s+ " Code: "+c+" Updated: "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
 }
 
 $( "#btnfilterclear" ).click(function(){
@@ -199,3 +214,4 @@ function addToDebug(s, c, t ,v) {
 </script>
 </body>
 </html>
+
